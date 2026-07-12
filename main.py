@@ -44,7 +44,7 @@ y_pred = model.predict(x_test)
 
 # evaluating performance using regression metrices
 accuracy = accuracy_score(y_test, y_pred)
-print(f"Accuracy:- {accuracy * 100.:2f}\n")
+print(f"Accuracy:- {accuracy * 100:.2f}%\n")
 report = classification_report(y_test, y_pred)
 print("Classification Report\n")
 print(report)
