@@ -2,7 +2,7 @@
 
 📸 Application InterfaceBelow is the user interface designed for collecting demographic attributes and delivering real-time predictions directly from the containerized machine learning microservice:
 
-![Streamlit Frontend Workspace](assets\app_preview.png)
+![Streamlit Frontend Workspace](assets/app_preview.png)
 
 📊 Model Evaluation & MetricsThe core engine relies on a K-Neighbors Classifier (KNN), optimized using an automated data encoding and scaling workflow.Performance SummaryClassification Accuracy: 83.24% (or your exact calculated accuracy score)Data Split: 80% Training Set / 20% Evaluation Testing SetPreprocessing Pipeline: Categorical inputs are handled dynamically via OneHotEncoder(handle_unknown="ignore"), while all resulting inputs are normalized via StandardScaler to optimize spatial distance calculation accuracy.
 
