@@ -75,21 +75,28 @@ def create_model_configuration(config: ModelConfig):
         # scaling the data using your saved training rules
         scaled_features = scaler.transform(x_combined)
 
-        # generating hard classification prediction (0 or 1)
-        prediction = int(model.predict(scaled_features)[0])
+        # Generating hard classification prediction (this returns string labels like '<=50K' or '>50K')
+        raw_prediction = model.predict(scaled_features)[0]
 
-        # generating prediction probabilities
+        # Generating prediction probabilities
         probabilities = model.predict_proba(scaled_features)[0]
+        
+        # Check how your classes are ordered in the model to assign confidence score accurately
+        # model.classes_ usually outputs array(['<=50K', '>50K']) where index 1 is high income
         risk_probabilities = float(probabilities[1])
 
-        # building response dictionary
-        result = "Income More than $50k USD" if prediction == 1 else "Income less than $50k USD"
+        # Building response structure by checking the string text directly
+        if raw_prediction == ">50K":
+            prediction_code = 1
+            result = "Income More than $50k USD"
+        else:
+            prediction_code = 0
+            result = "Income less than $50k USD"
 
         return {
-            "prediction_code": prediction,
+            "prediction_code": prediction_code,
             "prediction_label": result,
             "confidence_score": round(risk_probabilities * 100, 2)
         }
-
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction error occured: {str(e)}")
